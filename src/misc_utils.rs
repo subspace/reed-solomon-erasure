@@ -1,8 +1,6 @@
 #[cfg(test)]
 use rand;
 
-use rayon::prelude::*;
-
 #[cfg(test)]
 pub fn fill_random(arr : &mut [u8]) {
     for a in arr.iter_mut() {
@@ -89,8 +87,8 @@ pub fn par_slices_are_equal<T>(slice1     : &[T],
     // mismatch is present
 
     let at_least_one_mismatch_present =
-        slice1.par_chunks(chunk_size)
-        .into_par_iter()
+        slice1.chunks(chunk_size)
+        .into_iter()
         .enumerate()
         .map(|(i, slice1_part)| {
             let slice2_start = i * chunk_size;
